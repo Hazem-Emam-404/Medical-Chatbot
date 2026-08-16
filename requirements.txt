@@ -1,0 +1,12 @@
+langchain
+langchain_classic
+langchain-groq
+langchain-huggingface
+langchain-chroma
+langchain-community
+pypdf
+python-dotenv
+chromadb
+sentence-transformers
+langchain-text-splitters
+tiktoken
