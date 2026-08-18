@@ -20,7 +20,7 @@
       "description": "List of citations backing the recommendation. Empty only when confidence is 'insufficient'.",
       "items": {
         "type": "object",
-        "required": ["document", "section", "page"],
+        "required": ["document", "section", "page", "chunk_id"],
         "additionalProperties": false,
         "properties": {
           "document": {
@@ -37,6 +37,11 @@
             "type": "integer",
             "description": "Page number the cited text appears on.",
             "minimum": 1
+          },
+          "chunk_id": {
+            "type": "string",
+            "description": "chunk_id of the cited text in the vector database.",
+            "minLength": 1
           }
         }
       }
