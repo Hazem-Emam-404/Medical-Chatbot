@@ -1,0 +1,64 @@
+{
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "enum": [
+                "answered",
+                "insufficient_evidence",
+                "safety_refusal"
+            ]
+        },
+        "recommendation": {
+            "type": "string"
+        },
+        "supporting_evidence": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "claim": {
+                        "type": "string"
+                    },
+                    "citations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "claim",
+                    "citations"
+                ]
+            }
+        },
+        "confidence": {
+            "type": "string",
+            "enum": [
+                "High",
+                "Medium",
+                "Low",
+                "Insufficient Evidence",
+                "safety_refusal"
+            ]
+        },
+        "missing_information": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "safety_note": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "status",
+        "recommendation",
+        "supporting_evidence",
+        "confidence",
+        "missing_information",
+        "safety_note"
+    ]
+}

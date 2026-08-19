@@ -11,3 +11,4 @@ sentence-transformers
 langchain-text-splitters
 tiktoken
 pandas
+rank_bm25
