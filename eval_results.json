@@ -1,0 +1,592 @@
+[
+    {
+        "id": 1,
+        "question": "What blood pressure threshold does WHO recommend for initiating pharmacological treatment in individuals with a confirmed diagnosis of hypertension?",
+        "type": "Type A",
+        "source": "file1.pdf",
+        "answer_location": "Page vii(Exec Summary)",
+        "expected_answer": "Systolic BP ≥140 mmHg or Diastolic BP ≥90 mmHg.",
+        "other_locations": "Page 7 (Sec 3.1),Page 26 (Sec 6.1)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**WHO Blood Pressure Threshold for Initiating Pharmacological Treatment**\n\n- For adults with a confirmed diagnosis of hypertension, WHO recommends starting antihypertensive medication when:\n  - **Systolic blood pressure (SBP) ≥ 140 mmHg**, **or**\n  - **Diastolic blood pressure (DBP) ≥ 90 mmHg**.\n\nThis threshold applies to the general hypertensive population without additional high‑risk conditions.\n\n*Reference: WHO guideline on hypertension pharmacological treatment.*",
+            "supporting_evidence": [
+                {
+                    "claim": "WHO recommends initiation of pharmacological antihypertensive treatment for individuals with a confirmed diagnosis of hypertension when systolic BP is ≥140 mmHg or diastolic BP is ≥90 mmHg.",
+                    "citations": [
+                        "[file1.pdf | Page 19 | Section 3 Recommendations | Chunk file1.pdf_ch0010]",
+                        "[file1.pdf | Page 9 | Section Front Matter (Executive Summary) | Chunk file1.pdf_ch0001]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What blood pressure targets does WHO recommend after initiating antihypertensive therapy?",
+                "What are the WHO recommendations for initiating treatment in patients with existing cardiovascular disease?",
+                "How does WHO suggest managing hypertension in individuals with high cardiovascular risk, diabetes, or chronic kidney disease?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 2,
+        "question": "What are the criteria used by NICE to confirm a diagnosis of Stage 1 versus Stage 2 hypertension using clinic and ABPM/HBPM readings?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Pages 25–26(Terms)",
+        "expected_answer": "• Stage 1: Clinic 140/90 to 159/99 mmHg AND ABPM/HBPM 135/85 to 149/94 mmHg.• Stage 2: Clinic ≥160/100 mmHg AND ABPM/HBPM ≥150/95 mmHg.",
+        "other_locations": "Page 8 (Sec 1.2.8)",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The provided NICE guideline excerpts describe thresholds for confirming a diagnosis of hypertension (clinic BP ≥ 140/90 mmHg; ABPM or HBPM average ≥ 135/85 mmHg) and for severe hypertension (clinic BP ≥ 180/120 mmHg). However, they do not specify the exact criteria that NICE uses to differentiate Stage 1 from Stage 2 hypertension based on clinic and ABPM/HBPM readings.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "Specific NICE-defined blood pressure ranges that delineate Stage 1 versus Stage 2 hypertension for clinic measurements and for ABPM/HBPM averages are not included in the supplied excerpts."
+            ],
+            "follow_up_suggestions": [
+                "What are the NICE blood pressure thresholds that define Stage 1 and Stage 2 hypertension?",
+                "What are the recommended first-line antihypertensive drug classes for Stage 1 versus Stage 2 hypertension according to NICE?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 3,
+        "question": "How do WHO and NICE differ in their recommended target blood pressure goals for adults aged under 80 with hypertension?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. viiNICE: Pg. 16",
+        "expected_answer": "• WHO: <140/90 mmHg overall; <130 mmHg SBP for known CVD/high risk.• NICE: <140/90 mmHg clinic (<135/85 mmHg ABPM/HBPM) for all <80.",
+        "other_locations": "WHO: Pg. 16 (Sec 3.6)NICE: Pg. 14, 17",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**WHO vs. NICE Blood Pressure Targets for Adults < 80 years with Hypertension**\n\n- **World Health Organization (WHO)**\n  - General hypertension (no comorbidities): target **< 140/90 mmHg**【file1.pdf | Page 28 | Section 3 Recommendations | Chunk file1.pdf_ch0022】\n  - Hypertension with known cardiovascular disease (CVD) or high cardiovascular risk (including diabetes or chronic kidney disease): target **systolic < 130 mmHg** (diastolic not specified)【file1.pdf | Page 28 | Section 3 Recommendations | Chunk file1.pdf_ch0022】\n\n- **National Institute for Health and Care Excellence (NICE)** (people under 80)\n  - Hypertension (with or without type 2 diabetes) **or** type 1 diabetes with albumin‑creatinine ratio **< 70 mg/mmol**: target **< 140/90 mmHg**【file2.pdf | Page 14 | Section Recommendations | Chunk file2.pdf_ch0074】\n  - Type 1 diabetes **or** chronic kidney disease with albumin‑creatinine ratio **≥ 70 mg/mmol**: target **< 130/80 mmHg**【file2.pdf | Page 14 | Section Recommendations | Chunk file2.pdf_ch0074】\n\n**Key differences**\n- WHO uses a single < 140/90 mmHg goal for uncomplicated hypertension and a lower systolic goal (< 130 mmHg) for patients with CVD or high‑risk conditions.\n- NICE provides two tiered targets based on the presence of significant albuminuria/CKD: < 140/90 mmHg for most patients, and a stricter < 130/80 mmHg when albumin‑creatinine ratio is ≥ 70 mg/mmol.\n- NICE specifies both systolic and diastolic thresholds, whereas WHO emphasizes systolic thresholds for high‑risk groups.",
+            "supporting_evidence": [
+                {
+                    "claim": "WHO recommends a target blood pressure of <140/90 mmHg for hypertension without comorbidities.",
+                    "citations": [
+                        "[file1.pdf | Page 28 | Section 3 Recommendations | Chunk file1.pdf_ch0022]"
+                    ]
+                },
+                {
+                    "claim": "WHO recommends a systolic target <130 mmHg for hypertension with known CVD or high cardiovascular risk (including diabetes and CKD).",
+                    "citations": [
+                        "[file1.pdf | Page 28 | Section 3 Recommendations | Chunk file1.pdf_ch0022]"
+                    ]
+                },
+                {
+                    "claim": "NICE recommends a clinic blood pressure target of <140/90 mmHg for adults under 80 with hypertension (with or without type 2 diabetes) or type 1 diabetes with albumin‑creatinine ratio <70 mg/mmol.",
+                    "citations": [
+                        "[file2.pdf | Page 14 | Section Recommendations | Chunk file2.pdf_ch0074]"
+                    ]
+                },
+                {
+                    "claim": "NICE recommends a stricter target of <130/80 mmHg for adults under 80 with type 1 diabetes or chronic kidney disease when albumin‑creatinine ratio is ≥70 mg/mmol.",
+                    "citations": [
+                        "[file2.pdf | Page 14 | Section Recommendations | Chunk file2.pdf_ch0074]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What are the recommended blood pressure targets for adults aged 80 and over according to WHO and NICE?",
+                "How should blood pressure targets be adjusted for patients with chronic kidney disease in these guidelines?",
+                "What monitoring recommendations accompany intensive blood pressure targets for high‑risk patients?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 4,
+        "question": "According to NICE, what specific criteria require an adult under 80 with persistent Stage 1 hypertension to be offered antihypertensive drug treatment?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Pages 12–13(Sec 1.4.10)",
+        "expected_answer": "Presence of ≥1: target organ damage, established CVD, renal disease, diabetes, or 10-year CVD risk ≥10%.",
+        "other_locations": "Page 34 (Rationale)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**Criteria for offering antihypertensive drug treatment to adults < 80 years with persistent Stage 1 hypertension**\n\n- The adult must have **persistent Stage 1 hypertension** (clinic BP ≥ 140/90 mmHg).\n- In addition, **at least one** of the following risk factors or conditions must be present:\n  - Target organ damage (e.g., left‑ventricular hypertrophy, retinopathy, chronic kidney disease)\n  - Established cardiovascular disease (e.g., prior myocardial infarction, stroke, peripheral arterial disease)\n  - Renal disease\n  - Diabetes mellitus\n  - An estimated 10‑year cardiovascular disease risk of **10 % or greater** (calculated using QRISK or an equivalent NICE‑endorsed tool)\n\nWhen these criteria are met, clinicians should discuss starting antihypertensive medication alongside lifestyle advice, taking the patient’s preferences into account.\n\n*Reference: NICE guideline recommendation 1.4.10.*",
+            "supporting_evidence": [
+                {
+                    "claim": "Adults under 80 with persistent stage 1 hypertension should be offered antihypertensive drug treatment if they have target organ damage, established cardiovascular disease, renal disease, diabetes, or a 10‑year CVD risk ≥ 10%.",
+                    "citations": [
+                        "[file2.pdf | Page 12 | Section Recommendations | Chunk file2.pdf_ch0072]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What lifestyle interventions are recommended to accompany antihypertensive drug treatment?",
+                "How is the 10‑year cardiovascular risk calculated for patients with stage 1 hypertension?",
+                "When should clinicians consider antihypertensive treatment for patients over 80 years old with stage 1 hypertension?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 5,
+        "question": "What three drug classes are recommended as first-line treatment options for hypertension by WHO, and how does NICE's Step 1 recommendation compare based on patient age and ethnicity?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. viiiNICE: Pgs. 19–20",
+        "expected_answer": "• WHO: Thiazide/thiazide-like, ACEi/ARB, or CCB.• NICE: <55 (non-Black) or T2D → ACEi/ARB; ≥55 or Black African/Caribbean → CCB.",
+        "other_locations": "WHO: Pg. 11 (Sec 3.4)NICE: Pg. 42 (Rationale)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**WHO first‑line drug classes**\n- Thiazide and thiazide‑like diuretics\n- Angiotensin‑converting enzyme inhibitors (ACEis) or angiotensin‑receptor blockers (ARBs)\n- Long‑acting dihydropyridine calcium‑channel blockers (CCBs)\n\n**NICE Step 1 recommendation (age focus)**\n- Offer antihypertensive drug treatment (with lifestyle advice) to adults of any age who have persistent stage 2 hypertension.\n- Discuss starting antihypertensive drug treatment (with lifestyle advice) with adults **under 80 years** who have persistent stage 1 hypertension and additional risk factors (target organ damage, CVD, renal disease, diabetes, or ≥10 % 10‑year CVD risk).\n\n**Ethnicity**\n- The retrieved NICE evidence does not include ethnicity‑specific guidance for Step 1 treatment decisions.\n\n**Summary**\nWHO recommends three broad drug classes for initial therapy, while NICE emphasizes age‑based thresholds (any age for stage 2, under 80 for stage 1 with risk factors) but does not provide ethnicity‑specific recommendations in the cited material.",
+            "supporting_evidence": [
+                {
+                    "claim": "WHO recommends thiazide/thiazide‑like agents, ACEis/ARBs, and long‑acting dihydropyridine CCBs as first‑line antihypertensive drug classes.",
+                    "citations": [
+                        "[file1.pdf | Page 10 | Section Front Matter (Executive Summary) | Chunk file1.pdf_ch0002]"
+                    ]
+                },
+                {
+                    "claim": "NICE advises offering antihypertensive drug treatment to adults of any age with persistent stage 2 hypertension, and discussing treatment with adults under 80 years with persistent stage 1 hypertension plus specific risk factors.",
+                    "citations": [
+                        "[file2.pdf | Page 12 | Section Recommendations | Chunk file2.pdf_ch0072]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [
+                "Ethnicity‑specific recommendations for hypertension treatment are not provided in the retrieved NICE evidence."
+            ],
+            "follow_up_suggestions": [
+                "What blood pressure thresholds does WHO set for initiating pharmacological treatment?",
+                "How does NICE recommend managing hypertension in patients with frailty or multimorbidity?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 6,
+        "question": "How frequently should follow-up visits be scheduled post-medication initiation according to WHO versus NICE guidelines?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. ixNICE: Pg. 17",
+        "expected_answer": "• WHO: Monthly post-initiation/change until target met; every 3–6 months once controlled.• NICE: Annual review once established.",
+        "other_locations": "WHO: Pg. 17 (Sec 3.7)NICE: Pg. 9 (Sec 1.2.10)",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The provided WHO guideline recommends a follow‑up visit **monthly after initiation or a change in antihypertensive medication until the blood pressure target is reached**, and then **every 3–6 months for patients whose blood pressure is stable and under control**. No specific NICE guideline information on follow‑up intervals was included in the supplied evidence, so a direct comparison cannot be completed.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "NICE guideline details on recommended follow‑up intervals after antihypertensive medication initiation are not present in the retrieved documents."
+            ],
+            "follow_up_suggestions": [
+                "Would you like to provide NICE guideline excerpts on follow‑up intervals for hypertension management?",
+                "Do you need clarification on the WHO recommendation for initial monthly follow‑up and subsequent 3–6 month intervals?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 7,
+        "question": "What are the four specific conditions required by WHO for nonphysician health workers to prescribe antihypertensive medications?",
+        "type": "Type A",
+        "source": "file1.pdf",
+        "answer_location": "Page ix(Exec Summary)",
+        "expected_answer": "1. Proper training2. Prescribing authority3. Specific protocols4. Physician oversight",
+        "other_locations": "Page 19 (Sec 3.8)",
+        "model_response": {
+            "status": "safety_refusal",
+            "recommendation": "HIGH RISK DETECTED: This appears to be a patient-specific diagnosis or dosage request. As an AI, I cannot prescribe medication or diagnose conditions. Please consult a qualified clinician.",
+            "supporting_evidence": [],
+            "confidence": "safety_refusal",
+            "missing_information": [
+                "Patient-specific diagnosis or dosage request detected."
+            ],
+            "follow_up_suggestions": [],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 8,
+        "question": "Under what clinical circumstances does NICE recommend same-day specialist hospital assessment for a patient with severe hypertension (≥180/120 mmHg)?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 24(Sec 1.5.2–3)",
+        "expected_answer": "If accompanied by signs of retinal haemorrhage/papilloedema, life-threatening symptoms (confusion, chest pain, HF, AKI), or suspected phaeochromocytoma.",
+        "other_locations": "Page 46 (Rationale)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**Clinical circumstances for same‑day specialist hospital assessment (NICE)**\n\n- **Severe hypertension (clinic BP ≥ 180/120 mmHg) with acute target‑organ signs**:\n  - Retinal haemorrhage or papilloedema (accelerated hypertension)\n  - Life‑threatening symptoms such as new‑onset confusion, chest pain, signs of heart failure, or acute kidney injury\n- **Severe hypertension with features suggestive of pheochromocytoma**:\n  - Labile or postural hypotension, headache, palpitations, pallor, abdominal pain, or diaphoresis\n\nWhen any of the above are present, NICE recommends arranging a **same‑day specialist assessment**.\n\n*Reference: NICE guideline 2019, Recommendations 1.5.2 and 1.5.3.*",
+            "supporting_evidence": [
+                {
+                    "claim": "Same‑day specialist assessment is recommended for people with clinic BP ≥ 180/120 mmHg who have signs of retinal haemorrhage or papilloedema, or life‑threatening symptoms (new confusion, chest pain, heart‑failure signs, acute kidney injury).",
+                    "citations": [
+                        "[file2.pdf | Page 24 | Section Recommendations | Chunk file2.pdf_ch0084]"
+                    ]
+                },
+                {
+                    "claim": "Same‑day specialist assessment is also recommended for people with severe hypertension when pheochromocytoma is suspected (e.g., labile/postural hypotension, headache, palpitations, pallor, abdominal pain, diaphoresis).",
+                    "citations": [
+                        "[file2.pdf | Page 24 | Section Recommendations | Chunk file2.pdf_ch0084]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What investigations should be performed to assess target‑organ damage in severe hypertension?",
+                "How should clinicians manage patients with extreme hypertension (≥220/120 mmHg) pending specialist review?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 9,
+        "question": "Which specific antihypertensive drug classes are contraindicated during pregnancy in both WHO and NICE guidelines?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. 23NICE: Pg. 18",
+        "expected_answer": "ACE inhibitors (ACEi) and Angiotensin-Receptor Blockers (ARBs) due to risk of fetal toxicity and adverse outcomes.",
+        "other_locations": "WHO: Pg. 28NICE: Pg. 18",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The provided NICE guideline excerpts list several antihypertensive drug classes that are contraindicated during pregnancy, including ACE inhibitors, angiotensin II receptor blockers (ARBs), direct‑acting renin inhibitors, the mineralocorticoid receptor antagonist spironolactone, and the beta‑blocker atenolol. However, the retrieved evidence does not contain WHO guideline statements on this topic, so a complete answer covering both WHO and NICE guidelines cannot be given.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "WHO guideline references specifying antihypertensive drug classes contraindicated in pregnancy are needed to fully answer the question."
+            ],
+            "follow_up_suggestions": [
+                "What are the recommended first‑line antihypertensive drug classes for pregnant women according to NICE?",
+                "What blood pressure thresholds trigger pharmacologic treatment of hypertension in pregnancy?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 10,
+        "question": "What is NICE's protocol for measuring postural hypotension, and what drop in blood pressure confirms a positive diagnosis?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 6(Sec 1.1.5–6)",
+        "expected_answer": "Measure BP lying/seated, then standing ≥1 min. Positive if SBP falls ≥20 mmHg or DBP falls ≥10 mmHg.",
+        "other_locations": "Page 15 (Sec 1.4.16)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**NICE protocol for measuring postural hypotension**\n\n- **Initial measurement**: Have the person lie flat (or sit if lying down is impractical) and measure their blood pressure.\n- **Standing measurement**: After the person has been standing for **at least 1 minute**, measure the blood pressure again.\n\n**Threshold for a positive diagnosis**\n\n- A drop of **≥ 20 mmHg systolic** **or** **≥ 10 mmHg diastolic** after standing for the required minute confirms postural hypotension.\n\nThese steps and thresholds are drawn directly from the NICE guideline recommendations.\n\n**What to do next**\n- Consider possible causes, review medications, and manage appropriately (e.g., advice on fall prevention).\n- If symptoms persist despite addressing causes, consider referral to specialist care.\n\n**Reference**: NICE guideline recommendations for postural hypotension measurement and diagnostic thresholds.\n",
+            "supporting_evidence": [
+                {
+                    "claim": "Measure blood pressure lying down (or seated) and again after the person has been standing for at least 1 minute.",
+                    "citations": [
+                        "[file2.pdf | Page 6 | Section Recommendations | Chunk file2.pdf_ch0066]"
+                    ]
+                },
+                {
+                    "claim": "A systolic drop of ≥20 mmHg or a diastolic drop of ≥10 mmHg after standing for at least 1 minute confirms postural hypotension.",
+                    "citations": [
+                        "[file2.pdf | Page 6 | Section Recommendations | Chunk file2.pdf_ch0066]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What management strategies are recommended after confirming postural hypotension?",
+                "When should a referral to specialist care be considered for persistent postural hypotension?",
+                "How should blood pressure be monitored after an initial diagnosis of postural hypotension?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 11,
+        "question": "How do WHO and NICE differ in their strategy regarding single-pill combination (SPC) therapy vs step-by-step monotherapy escalation?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. viiiNICE: Pgs. 19–21",
+        "expected_answer": "• WHO: Prefers initial combination therapy (ideally single-pill combination).• NICE: Stepwise approach starting with Step 1 monotherapy, escalating to Step 2 dual therapy.",
+        "other_locations": "WHO: Pg. 13 (Sec 3.5)NICE: Pg. 42 (Rationale)",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "I’m unable to compare WHO and NICE strategies for single‑pill combination therapy versus step‑by‑step monotherapy escalation because the provided evidence includes only WHO guidance and does not contain NICE recommendations.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "NICE guideline excerpts or summaries addressing single‑pill combination therapy and step‑wise monotherapy escalation are needed to answer the comparison."
+            ],
+            "follow_up_suggestions": [
+                "Could you provide the relevant NICE guideline text on antihypertensive treatment strategies?",
+                "Would you like a summary of the WHO recommendations on single‑pill combination therapy based on the available evidence?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 12,
+        "question": "What target blood pressure level is set by NICE for adults aged 80 and over with primary hypertension without severe CKD?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 16(Sec 1.4.21)",
+        "expected_answer": "Target clinic BP below 150/90 mmHg (or ABPM/HBPM waking average below 145/85 mmHg).",
+        "other_locations": "Page 14 (Table 2)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**Target blood pressure for adults ≥ 80 years with primary hypertension (no severe CKD)**\n\n- **Clinic blood pressure:** Reduce to **below 150/90 mmHg** and maintain this level.\n- This recommendation applies to adults with primary hypertension; separate lower targets are provided for those with severe chronic kidney disease or diabetes.\n\n*Source: NICE guideline on hypertension (2022 amendment).",
+            "supporting_evidence": [
+                {
+                    "claim": "NICE recommends that for adults with hypertension aged 80 and over, clinic blood pressure should be reduced to below 150/90 mmHg.",
+                    "citations": [
+                        "[file2.pdf | Page 16 | Section Recommendations | Chunk file2.pdf_ch0076]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What is the recommended clinic blood pressure target for adults under 80 with primary hypertension?",
+                "How should home blood pressure monitoring (HBPM) thresholds be adjusted for adults aged 80 and over?",
+                "What are the NICE blood pressure targets for patients aged 80+ who have severe chronic kidney disease?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 13,
+        "question": "What dietary salt intake guidance is provided by WHO vs NICE for managing blood pressure?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. 2NICE: Pg. 11",
+        "expected_answer": "• WHO: Reduce salt intake to <5 g daily.• NICE: Keep sodium low; warns potassium chloride salt substitutes must NOT be used by older adults, diabetics, or those on ACEi/ARBs.",
+        "other_locations": "WHO: Pg. 10 (Sec 3.3)",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The provided evidence includes NICE guidance recommending low dietary sodium intake and cautions about potassium‑based salt substitutes in certain populations, but it does not contain WHO recommendations on salt intake for blood pressure management.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "WHO guideline statements on dietary salt intake for blood pressure control are needed to compare with NICE recommendations."
+            ],
+            "follow_up_suggestions": [
+                "What other lifestyle interventions does NICE recommend for managing hypertension?",
+                "What are NICE's recommendations regarding alcohol consumption and blood pressure?",
+                "What guidance does NICE give about caffeine intake and blood pressure?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 14,
+        "question": "According to NICE, what drug therapy options should be considered as Step 4 treatment for resistant hypertension depending on blood potassium levels?",
+        "type": "Type B",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 23(Sec 1.4.49–51)",
+        "expected_answer": "• K+ ≤4.5 mmol/l: Low-dose spironolactone.• K+ >4.5 mmol/l: Alpha-blocker or beta-blocker.",
+        "other_locations": "Page 45 (Rationale)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**Step 4 treatment for resistant hypertension (per NICE)**\n\n- **General approach**: When hypertension remains uncontrolled despite optimal tolerated doses of an ACE inhibitor/ARB, a calcium‑channel blocker, and a thiazide‑like diuretic, the patient is classified as having resistant hypertension and a fourth antihypertensive agent should be considered, or specialist advice sought.\n- **If blood potassium ≤ 4.5 mmol/L**: Add a low‑dose spironolactone (further diuretic therapy). Caution is advised in patients with reduced eGFR due to hyperkalaemia risk.\n- **If blood potassium > 4.5 mmol/L**: Consider adding an **alpha‑blocker** or a **beta‑blocker**.\n- **Monitoring**: After initiating the additional diuretic (e.g., spironolactone), monitor serum sodium, potassium and renal function within one month and repeat as needed.\n- **If still uncontrolled after four agents**: Seek specialist advice.\n\nThese options are guided by the NICE 2019 hypertension guideline recommendations.",
+            "supporting_evidence": [
+                {
+                    "claim": "Patients with resistant hypertension should have a fourth antihypertensive drug added as step 4 treatment or be referred to a specialist.",
+                    "citations": [
+                        "[file2.pdf | Page 23 | Section Recommendations | Chunk file2.pdf_ch0083]"
+                    ]
+                },
+                {
+                    "claim": "If blood potassium is ≤ 4.5 mmol/L, consider low‑dose spironolactone as further diuretic therapy, with caution in reduced eGFR.",
+                    "citations": [
+                        "[file2.pdf | Page 23 | Section Recommendations | Chunk file2.pdf_ch0083]"
+                    ]
+                },
+                {
+                    "claim": "If blood potassium is > 4.5 mmol/L, consider an alpha‑blocker or beta‑blocker.",
+                    "citations": [
+                        "[file2.pdf | Page 23 | Section Recommendations | Chunk file2.pdf_ch0083]"
+                    ]
+                },
+                {
+                    "claim": "Monitor blood sodium, potassium and renal function within one month after starting further diuretic therapy for step 4 treatment.",
+                    "citations": [
+                        "[file2.pdf | Page 23 | Section Recommendations | Chunk file2.pdf_ch0083]"
+                    ]
+                },
+                {
+                    "claim": "If blood pressure remains uncontrolled after optimal doses of four drugs, seek specialist advice.",
+                    "citations": [
+                        "[file2.pdf | Page 23 | Section Recommendations | Chunk file2.pdf_ch0083]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What monitoring schedule and laboratory tests are recommended after initiating spironolactone in step 4 treatment?",
+                "When should a patient with resistant hypertension be referred to a hypertension specialist according to NICE?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 15,
+        "question": "How do WHO and NICE handle blood pressure diagnostic measurement protocols in clinics before confirming hypertension?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. 7NICE: Pgs. 7–8",
+        "expected_answer": "• WHO: Confirms diagnosis via repeated clinic visits over time.• NICE: Check both arms; if clinic BP ≥140/90 mmHg, requires out-of-office ABPM/HBPM before confirmation.",
+        "other_locations": "WHO: Pg. 26 (Sec 6.1)NICE: Pg. 31 (Rationale)",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The provided evidence details NICE recommendations for clinic blood pressure measurement before confirming hypertension, but it does not include WHO guidelines on this topic. Therefore, I cannot fully answer how both WHO and NICE handle the diagnostic measurement protocols.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "WHO guideline details on clinic blood pressure measurement protocols are not present in the supplied evidence."
+            ],
+            "follow_up_suggestions": [
+                "What are the NICE recommendations for using ambulatory blood pressure monitoring (ABPM) to confirm hypertension?",
+                "How does NICE suggest investigating target organ damage while awaiting a hypertension diagnosis?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 16,
+        "question": "What specific baseline laboratory investigations are recommended by both WHO and NICE prior to/during hypertension assessment?",
+        "type": "Type C",
+        "source": "file1.pdf &file2_2.pdf",
+        "answer_location": "WHO: Pg. 8NICE: Pg. 10",
+        "expected_answer": "Serum electrolytes, creatinine/eGFR, lipid profile, HbA1c/fasting glucose, urine protein/albumin, and 12-lead ECG.",
+        "other_locations": "WHO: Pg. 26 (Sec 6.1)NICE: Pg. 51",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The provided evidence details baseline laboratory investigations recommended by NICE for hypertension assessment, but does not include WHO recommendations. Therefore, a complete answer covering both WHO and NICE cannot be given with the current information.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "WHO guideline details on baseline laboratory investigations for hypertension assessment are needed to answer the question fully."
+            ],
+            "follow_up_suggestions": [
+                "Can you provide the WHO guideline excerpts related to baseline laboratory investigations for hypertension?",
+                "Would you like a summary of the baseline laboratory tests recommended by NICE for hypertension assessment?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 17,
+        "question": "Why does NICE explicitly advise against combining an ACE inhibitor with an ARB for treating hypertension?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 20(Sec 1.4.34)",
+        "expected_answer": "Dual therapy combining ACEi and ARB lacks added clinical efficacy and increases risk of severe adverse events.",
+        "other_locations": "Page 18 (Sec 1.4.30)",
+        "model_response": {
+            "status": "insufficient_evidence",
+            "recommendation": "The supplied evidence does not contain the specific NICE rationale for advising against the combined use of an ACE inhibitor with an ARB in hypertension treatment.",
+            "supporting_evidence": [],
+            "confidence": "Insufficient Evidence",
+            "missing_information": [
+                "Guideline details explaining why NICE recommends not combining ACE inhibitors with ARBs are not present in the provided documents."
+            ],
+            "follow_up_suggestions": [
+                "What first‑line antihypertensive drug classes does NICE recommend for adults with hypertension?",
+                "What does the evidence say about the benefits of combination therapy versus monotherapy for hypertension?",
+                "How does NICE suggest managing blood pressure in patients with cardiovascular disease who remain uncontrolled on monotherapy?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 18,
+        "question": "According to WHO, why are long-acting CCBs preferred as initial treatment in disaster or humanitarian crisis settings?",
+        "type": "Type A",
+        "source": "file1.pdf",
+        "answer_location": "Page 21(Sec 4.1)",
+        "expected_answer": "Metabolically neutral, dose-dependent, highly predictable BP reduction, and effective at reducing BP variability.",
+        "other_locations": "N/A",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**Why long‑acting calcium‑channel blockers (CCBs) are preferred in disaster/humanitarian settings**\n\n- **Metabolic neutrality** – Long‑acting CCBs do not adversely affect glucose or lipid metabolism, which is important when patients may have limited access to monitoring and additional therapies.\n- **Reduction of blood‑pressure variability** – They are especially effective at minimizing BP variability, an independent predictor of adverse outcomes such as stroke.\n- **Predictable, dose‑dependent BP lowering** – The magnitude of BP reduction with long‑acting CCBs is well‑characterized and increases predictably with dose, facilitating simple, protocol‑driven treatment in resource‑constrained environments.\n\nThese attributes make long‑acting CCBs well‑suited for the challenges of providing hypertension care in humanitarian crises, where medication availability, monitoring capacity, and the need for stable BP control are critical considerations.",
+            "supporting_evidence": [
+                {
+                    "claim": "Long‑acting CCBs are preferred because they are metabolically neutral, reduce BP variability (a predictor of stroke), and have a dose‑dependent, predictable BP‑lowering effect.",
+                    "citations": [
+                        "[file1.pdf | Page 33 | Section 4 Special settings | Chunk file1.pdf_ch0028]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What blood pressure target is recommended for patients in disaster or humanitarian crisis settings?",
+                "Which other antihypertensive drug classes are considered appropriate in emergency health kits?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 19,
+        "question": "What is NICE's position on offering relaxation therapies to treat primary hypertension in adults?",
+        "type": "Type A",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 33(Rationale)",
+        "expected_answer": "Deleted previous recommendation due to insufficient clinical evidence of benefit (e.g., CV event reduction or QoL improvement).",
+        "other_locations": "Page 12 (Sec 1.4.8)",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**NICE’s Position on Relaxation Therapies for Primary Hypertension**\n\n- **Not recommended for routine use** – The NICE hypertension guideline removed the previous recommendation on relaxation therapies because the evidence base is limited to a single small study that was insufficient to assess effectiveness or safety.\n- **Insufficient evidence of benefit** – The available study suggested a possible reduction in angina and myocardial infarction but also indicated a potential increase in stroke, and there is no robust data showing improvements in quality of life or reduction in cardiovascular events for people with hypertension.\n- **Focus on other interventions** – Current NICE guidance emphasizes lifestyle changes (e.g., regular exercise, healthy weight) and antihypertensive medication rather than relaxation therapies.\n- **Patients may still try them** – While not recommended as a standard treatment, individuals are not discouraged from trying relaxation techniques if they wish, but they should be aware that the evidence supporting clinical benefit is lacking.\n\n*In summary, NICE does not endorse relaxation therapies as a routine treatment for primary hypertension in adults due to insufficient supporting evidence.*",
+            "supporting_evidence": [
+                {
+                    "claim": "NICE removed the recommendation on relaxation therapies because the evidence was limited to a single small study and was insufficient to assess effectiveness or safety.",
+                    "citations": [
+                        "[file2.pdf | Page 33 | Section Rationale and impact | Chunk file2.pdf_ch0093]"
+                    ]
+                },
+                {
+                    "claim": "Relaxation therapies are not recommended for routine use in the management of primary hypertension; current practice will not be affected by the removal of the previous recommendation.",
+                    "citations": [
+                        "[file2.pdf | Page 33 | Section Rationale and impact | Chunk file2.pdf_ch0093]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What are the NICE criteria for initiating antihypertensive drug treatment in adults with stage 1 hypertension?",
+                "Which lifestyle interventions does NICE prioritize for managing primary hypertension?",
+                "How does NICE recommend assessing cardiovascular risk when deciding on hypertension treatment?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    },
+    {
+        "id": 20,
+        "question": "How is masked hypertension defined across the diagnostic criteria in NICE guidelines?",
+        "type": "Type D",
+        "source": "file2_2.pdf",
+        "answer_location": "Page 25(Terms)",
+        "expected_answer": "Clinic BP is normal (<140/90 mmHg), but out-of-clinic readings (ABPM/HBPM average) are elevated.",
+        "other_locations": "Page 15 (Sec 1.4.18),Page 32",
+        "model_response": {
+            "status": "answered",
+            "recommendation": "**Masked Hypertension (NICE Definition)**\n\n- **Clinic measurements:** Blood pressure measured in the clinic is normal, i.e., **< 140/90 mmHg**.\n- **Out‑of‑clinic measurements:** Average daytime ambulatory blood pressure monitoring (ABPM) or average home blood pressure monitoring (HBM) shows elevated readings above the normal range.\n- This discrepancy indicates that the patient’s true blood pressure is higher than what is observed in the clinical setting, fitting the NICE definition of masked hypertension.\n\n*Reference: NICE guideline terminology section.*",
+            "supporting_evidence": [
+                {
+                    "claim": "Masked hypertension is defined as normal clinic BP (<140/90 mmHg) but elevated out‑of‑clinic BP measured by ABPM or HBM.",
+                    "citations": [
+                        "[file2.pdf | Page 25 | Section Recommendations | Chunk file2.pdf_ch0085]"
+                    ]
+                }
+            ],
+            "confidence": "High",
+            "missing_information": [],
+            "follow_up_suggestions": [
+                "What blood pressure thresholds trigger pharmacological treatment for patients with masked hypertension?",
+                "Which diagnostic method (ABPM or HBM) is preferred for confirming masked hypertension according to NICE?",
+                "How should clinicians monitor and follow up patients diagnosed with masked hypertension?"
+            ],
+            "safety_note": "Educational information only; not a diagnosis or medical advice."
+        }
+    }
+]
