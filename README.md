@@ -13,7 +13,7 @@
 
 <br/>
 
-**Built with pride by Team Retrieva for the 4-Day AI Hackathon**
+**Built with pride by Team Retrieva for the 5-Day AI Hackathon**
 
 [Explore Documentation](./final_deliverables/project_documentation.md) • [View Presentation Slides](./final_deliverables/presentation.html) • [Report Bug](https://github.com/)
 
