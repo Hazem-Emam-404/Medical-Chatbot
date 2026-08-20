@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, Any
 import bcrypt
-import jwt
+try:
+    import jwt
+except ImportError:
+    from jose import jwt
 from backend.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 def hash_password(password: str) -> str:
