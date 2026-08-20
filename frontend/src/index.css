@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .gradient-mesh {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(at 10% 10%, hsla(220, 100%, 94%, 1) 0px, transparent 40%),
+      radial-gradient(at 90% 10%, hsla(210, 100%, 96%, 1) 0px, transparent 40%),
+      radial-gradient(at 50% 50%, hsla(215, 100%, 92%, 0.8) 0px, transparent 60%),
+      radial-gradient(at 20% 80%, hsla(212, 100%, 95%, 1) 0px, transparent 50%),
+      radial-gradient(at 80% 90%, hsla(225, 100%, 93%, 1) 0px, transparent 50%);
+  }
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 74, 198, 0.08);
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #004ac6;
+  box-shadow: 0 0 0 4px rgba(0, 74, 198, 0.15);
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+}

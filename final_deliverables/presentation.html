@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClinicianMind AI — 4-Day RAG Hackathon | Team Retrieva</title>
+  
+  <!-- Modern Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    :root {
+      --bg-dark: #070d1e;
+      --bg-card: rgba(16, 26, 54, 0.75);
+      --bg-card-hover: rgba(26, 41, 82, 0.85);
+      --border-color: rgba(99, 140, 255, 0.18);
+      --border-focus: rgba(59, 130, 246, 0.6);
+      --primary: #2563eb;
+      --primary-light: #60a5fa;
+      --primary-glow: rgba(37, 99, 235, 0.35);
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #cbd5e1;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.08), transparent 35%);
+      z-index: 0;
+    }
+
+    /* Top Global Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 13, 30, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 50;
+    }
+
+    .brand-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .brand-avatar-mini {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--primary-light);
+      object-fit: cover;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .team-badge {
+      font-size: 0.75rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(6, 182, 212, 0.3));
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .slide-progress-container {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .slide-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    .header-center-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-header:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border-color: var(--primary-light);
+    }
+
+    /* Deck Viewport */
+    .deck-container {
+      position: relative;
+      flex: 1;
+      margin-top: 56px;
+      margin-bottom: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem 2.5rem;
+      z-index: 10;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      max-width: 1220px;
+      height: calc(100vh - 145px);
+      max-height: 720px;
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.25rem 3rem;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px) scale(0.98);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .slide::-webkit-scrollbar { width: 5px; }
+    .slide::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
+
+    /* Slide Header */
+    .slide-header {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.85rem;
+    }
+
+    .slide-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .slide-tag {
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Layout Grids */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.35rem 1.4rem;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+      font-size: 1.2rem;
+    }
+
+    .icon-blue { background: rgba(37, 99, 235, 0.2); color: var(--primary-light); border: 1px solid rgba(37, 99, 235, 0.4); }
+    .icon-cyan { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.4); }
+    .icon-emerald { background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.4); }
+    .icon-amber { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .icon-purple { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.4); }
+    .icon-rose { background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.4); }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.45rem;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.45;
+    }
+
+    .bullet-item span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 5px var(--accent-cyan);
+    }
+
+    .highlight {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Metric Box */
+    .metric-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.4rem;
+    }
+
+    .metric-box {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      text-align: center;
+    }
+
+    .metric-val {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .metric-lbl {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* Title Slide */
+    .title-slide-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .title-avatar {
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-light);
+      box-shadow: 0 0 35px rgba(37, 99, 235, 0.45);
+      margin-bottom: 1.25rem;
+    }
+
+    .title-main-h1 {
+      font-family: var(--font-heading);
+      font-size: 3.4rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffffff 40%, #93c5fd 80%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .title-sub {
+      font-size: 1.15rem;
+      color: var(--text-sub);
+      max-width: 680px;
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .team-badge-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .tech-pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-sub);
+    }
+
+    /* Architecture Flow */
+    .flow-pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.6rem;
+    }
+
+    .flow-step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.9rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: '➔';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-light);
+      font-size: 0.8rem;
+      z-index: 2;
+    }
+
+    .flow-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .flow-title {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .flow-desc {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* Image Gallery & Full Slide Showcase */
+    .image-showcase {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      position: relative;
+      background: #000;
+    }
+
+    .image-showcase img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .image-showcase:hover img { transform: scale(1.04); }
+
+    .image-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(0deg, rgba(7, 13, 30, 0.92), transparent);
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .showcase-slide-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      gap: 0.65rem;
+    }
+
+    .feature-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      margin-bottom: 0.15rem;
+    }
+
+    .feature-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #93c5fd;
+    }
+
+    .feature-pill-badge .material-symbols-outlined {
+      font-size: 15px;
+      color: var(--accent-cyan);
+    }
+
+    .full-image-frame {
+      flex: 1;
+      min-height: 0;
+      background: rgba(2, 6, 23, 0.75);
+      border: 1px solid rgba(96, 165, 250, 0.28);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(37, 99, 235, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .full-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 8px;
+    }
+
+    /* Bottom Global Controls */
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 64px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 13, 30, 0.9);
+      border-top: 1px solid var(--border-color);
+      z-index: 50;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--primary);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .slide-dots { display: flex; align-items: center; gap: 0.4rem; }
+    .slide-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .slide-dot.active {
+      width: 24px; border-radius: 9999px;
+      background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Speaker Notes Drawer */
+    .speaker-notes-panel {
+      position: fixed;
+      bottom: 64px;
+      right: 2rem;
+      width: 440px;
+      max-height: 340px;
+      background: rgba(11, 19, 43, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-focus);
+      border-radius: 14px;
+      padding: 1.1rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.6rem;
+      z-index: 60;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      overflow-y: auto;
+    }
+
+    .speaker-notes-panel.open { display: flex; }
+
+    .notes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.4rem;
+    }
+
+    .notes-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .notes-body-en { font-size: 0.82rem; color: #fff; line-height: 1.45; }
+    .notes-body-ar {
+      font-size: 0.8rem;
+      color: #93c5fd;
+      line-height: 1.45;
+      direction: rtl;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 0.4rem;
+    }
+
+    /* Evaluation Table */
+    .eval-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left; }
+    .eval-table th { background: rgba(255, 255, 255, 0.05); color: var(--accent-cyan); font-weight: 700; padding: 0.5rem 0.65rem; }
+    .eval-table td { padding: 0.45rem 0.65rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-sub); }
+    .eval-table tr.winner { background: rgba(16, 185, 129, 0.12); border-left: 3px solid var(--accent-emerald); }
+    .eval-table tr.winner td { color: #fff; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow" id="ambientGlow"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-tag">
+      <img src="images/avatar.webp" alt="Avatar" class="brand-avatar-mini" onerror="this.src='../avatar.webp'" />
+      <span>ClinicianMind AI</span>
+      <span class="team-badge">Team Retrieva</span>
+    </div>
+
+    <div class="header-center-title" id="slideIndicatorTitle">
+      Slide 1 / 9 — Overview
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-header" id="toggleNotesBtn" title="Toggle Speaker Notes (Shortcut: N)">
+        <span class="material-symbols-outlined" style="font-size: 17px;">record_voice_over</span>
+        <span>Notes (N)</span>
+      </button>
+      <button class="btn-header" id="fullscreenBtn" title="Fullscreen (Shortcut: F)">
+        <span class="material-symbols-outlined" style="font-size: 17px;">fullscreen</span>
+      </button>
+    </div>
+
+    <div class="slide-progress-container">
+      <div class="slide-progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <!-- Main Slide Viewport -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide active" data-title="Title & Welcome">
+      <div class="title-slide-container">
+        <img src="images/avatar.webp" alt="ClinicianMind Avatar" class="title-avatar" onerror="this.src='../avatar.webp'" />
+
+        <div class="team-badge-large">
+          <span class="material-symbols-outlined" style="font-size: 18px;">groups</span>
+          <span>Team Retrieva</span>
+        </div>
+
+        <h1 class="title-main-h1">ClinicianMind AI</h1>
+        <p class="title-sub">
+          Evidence-Grounded Clinical Decision Support RAG System Grounded in Official WHO & NICE Guidelines.
+        </p>
+
+        <div class="tech-pill-row">
+          <span class="tech-pill">⚡ 4-Day AI Hackathon</span>
+          <span class="tech-pill">🛡️ Zero Hallucinations</span>
+          <span class="tech-pill">🧠 ChromaDB + BGE Embeddings</span>
+          <span class="tech-pill">⚡ FastAPI + React (Vite)</span>
+          <span class="tech-pill">🎙️ Multimodal Voice Dictation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Problem & Scope -->
+    <section class="slide" data-title="The Problem & Domain">
+      <div class="slide-header">
+        <div>
+          <div class="slide-eyebrow">
+            <span class="material-symbols-outlined" style="font-size: 15px;">health_and_safety</span>
+            <span>Why This Project Matters</span>
+          </div>
+          <h2 class="slide-title">The Medical Hallucination Problem</h2>
+          <p class="slide-subtitle">Why healthcare requires verified guidelines instead of generic AI memory.</p>
+        </div>
+        <div class="slide-tag">
+          <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-rose);">warning</span>
+          <span>Clinical Safety First</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Problem Card -->
+          <div class="card" style="border-color: rgba(244, 63, 94, 0.25);">
+            <div class="card-icon icon-rose">
+              <span class="material-symbols-outlined">report</span>
+            </div>
+            <h3 class="card-title">The Danger of LLM Hallucinations</h3>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="dot" style="background: var(--accent-rose);"></span>
+                <span>Generic LLMs make up medical dosages and thresholds.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot" style="background: var(--accent-rose);"></span>
+                <span>In medicine, an <span class="highlight">invented number</span> can lead to severe clinical mistakes.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot" style="background: var(--accent-rose);"></span>
+                <span>Clinicians need <span class="highlight">exact page & section citations</span> for every claim.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Domain Choice Card -->
+          <div class="card" style="border-color: rgba(6, 182, 212, 0.25);">
+            <div class="card-icon icon-cyan">
+              <span class="material-symbols-outlined">cardiology</span>
+            </div>
+            <h3 class="card-title">Selected Scope: Adult Hypertension</h3>
+            <p class="card-desc" style="margin-bottom: 0.6rem;">
+              The #1 silent killer affecting <strong>1.4 Billion adults worldwide</strong>. Grounded in two official guidelines:
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+              <div style="background: rgba(255,255,255,0.04); padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem;">
+                <strong style="color: var(--accent-cyan);">📘 WHO (2021):</strong> Pharmacological Treatment of Hypertension
+              </div>
+              <div style="background: rgba(255,255,255,0.04); padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem;">
+                <strong style="color: var(--accent-emerald);">📗 NICE (2023 / NG136):</strong> Hypertension: Diagnosis & Management
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: System Architecture -->
+    <section class="slide" data-title="System Architecture">
+      <div class="slide-header">
+        <div>
+          <div class="slide-eyebrow">
+            <span class="material-symbols-outlined" style="font-size: 15px;">account_tree</span>
+            <span>System Pipeline</span>
+          </div>
+          <h2 class="slide-title">End-to-End RAG Architecture</h2>
+          <p class="slide-subtitle">Modular 6-stage architecture from raw guideline parsing to grounded clinical chat.</p>
+        </div>
+        <div class="slide-tag">
+          <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary-light);">layers</span>
+          <span>Modular Design</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="flow-pipeline">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <div class="flow-title">PDF Ingestion</div>
+            <div class="flow-desc">Cleaning & page offset mapping</div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <div class="flow-title">Vector Store</div>
+            <div class="flow-desc">BGE Embeddings + ChromaDB</div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <div class="flow-title">Risk Gate</div>
+            <div class="flow-desc">Regex filter for critical emergencies</div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <div class="flow-title">Refusal Gate</div>
+            <div class="flow-desc">Blocks queries with weak evidence</div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-num">5</div>
+            <div class="flow-title">Grounded LLM</div>
+            <div class="flow-desc">Structured JSON with exact citations</div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-num">6</div>
+            <div class="flow-title">Clinical UI</div>
+            <div class="flow-desc">React app with voice & PDF viewer</div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 0.85rem;">
+          <div class="card" style="padding: 0.9rem;">
+            <strong style="color: var(--primary-light); font-size: 0.88rem;">Backend API</strong>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">FastAPI, SQLAlchemy, SQLite, JWT Auth, Multi-model failover.</p>
+          </div>
+          <div class="card" style="padding: 0.9rem;">
+            <strong style="color: var(--accent-cyan); font-size: 0.88rem;">Vector Pipeline</strong>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">ChromaDB, BAAI/bge-large-en-v1.5 embeddings.</p>
+          </div>
+          <div class="card" style="padding: 0.9rem;">
+            <strong style="color: var(--accent-purple); font-size: 0.88rem;">Frontend & Voice</strong>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">React 18 + Vite, Web Speech API (Dictation & Audio), PDF Viewer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Day 1 — Ingestion & Baseline -->
+    <section class="slide" data-title="Day 1: Ingestion & Baseline">
+      <div class="slide-header">
+        <div>
+          <div class="slide-eyebrow">
+            <span class="material-symbols-outlined" style="font-size: 15px;">build</span>
+            <span>Day 1 Deliverables</span>
+          </div>
+          <h2 class="slide-title">Ingestion & Baseline RAG</h2>
+          <p class="slide-subtitle">Building the clean document index and baseline retrieval prompt.</p>
+        </div>
+        <div class="slide-tag">
+          <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-amber);">calendar_today</span>
+          <span>Day 1</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Ingestion & Metadata -->
+          <div class="card">
+            <div class="card-icon icon-blue">
+              <span class="material-symbols-outlined">data_object</span>
+            </div>
+            <h3 class="card-title">1. Document Cleaning & Metadata</h3>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Clean Parsing:</strong> Removed noisy headers, footers, and page artifacts from WHO & NICE PDFs.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Page Offset Normalization:</strong> Applied a <span class="highlight">+12 page offset</span> to WHO so cited pages match the printed guideline exactly.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Rich Metadata:</strong> Tagged chunks with <code>document</code>, <code>section</code>, <code>page_number</code>, and <code>chunk_id</code>.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Baseline RAG -->
+          <div class="card">
+            <div class="card-icon icon-amber">
+              <span class="material-symbols-outlined">chat</span>
+            </div>
+            <h3 class="card-title">2. Baseline Vector Store & Prompt</h3>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>ChromaDB Setup:</strong> Indexed all cleaned chunks into a local persistent vector database.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Grounding Prompt:</strong> Instructed the LLM to answer strictly from the retrieved text.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Basic Refusal:</strong> If no evidence exists, the model was instructed to explicitly state: <em>"There is no evidence in the provided context."</em></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Day 2 — Retrieval Optimization -->
+    <section class="slide" data-title="Day 2: Retrieval Evaluation">
+      <div class="slide-header">
+        <div>
+          <div class="slide-eyebrow">
+            <span class="material-symbols-outlined" style="font-size: 15px;">analytics</span>
+            <span>Day 2 Deliverables (Core Engineering)</span>
+          </div>
+          <h2 class="slide-title">Grid Search & Retrieval Optimization</h2>
+          <p class="slide-subtitle">Finding the optimal chunk size, overlap, and embedding strategy via metrics.</p>
+        </div>
+        <div class="slide-tag">
+          <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-emerald);">tune</span>
+          <span>Day 2</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Grid Search Framework -->
+          <div class="card">
+            <h3 class="card-title" style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="material-symbols-outlined" style="color: var(--accent-cyan); font-size: 20px;">grid_view</span>
+              <span>1. Grid Search Framework</span>
+            </h3>
+            <ul class="bullet-list" style="margin-top: 0.4rem;">
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Search Space:</strong> Tested <strong>4 splitting configurations</strong> (varying chunk sizes & overlaps) across <strong>3 retrieval depths (K = 3, 5, 7)</strong>.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Evaluation Metrics:</strong> Measured <span class="highlight">Precision@K</span>, <span class="highlight">Recall@K</span>, and <span class="highlight">F1-Score@K</span> to balance evidence coverage vs context noise.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Optimal Selection:</strong> Selected the champion combination that delivered the highest retrieval quality for our clinical RAG pipeline.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Automated Judge, Hybrid Search & Re-ranker -->
+          <div class="card">
+            <h3 class="card-title" style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="material-symbols-outlined" style="color: var(--accent-emerald); font-size: 20px;">psychology</span>
+              <span>2. Re-ranker & Hybrid Search Exploration</span>
+            </h3>
+            <ul class="bullet-list" style="margin-top: 0.4rem;">
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Hybrid Search:</strong> Experimented with dense vectors + sparse keyword matching to capture exact clinical acronyms (e.g. ACEi, ARB, CCB, SBP).</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Re-ranking Pipeline:</strong> Applied a Cross-Encoder Re-ranker to re-score and re-order candidate chunks before passing to the LLM.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Ranker as Judge:</strong> Used the ranker model to evaluate ground-truth database Recall across our clinical benchmark questions.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Day 3 — Grounded Generation -->
+    <section class="slide" data-title="Day 3: Grounded Generation">
+      <div class="slide-header">
+        <div>
+          <div class="slide-eyebrow">
+            <span class="material-symbols-outlined" style="font-size: 15px;">verified_user</span>
+            <span>Day 3 Deliverables</span>
+          </div>
+          <h2 class="slide-title">Grounded Generation & Refusal Gates</h2>
+          <p class="slide-subtitle">Structured JSON schema output with distance-based evidence verification.</p>
+        </div>
+        <div class="slide-tag">
+          <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-purple);">psychology_alt</span>
+          <span>Day 3</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Strict Schema -->
+          <div class="card">
+            <div class="card-icon icon-purple">
+              <span class="material-symbols-outlined">schema</span>
+            </div>
+            <h3 class="card-title">1. Strict JSON Output Schema</h3>
+            <p class="card-desc" style="margin-bottom: 0.4rem;">
+              Every response must follow a strict JSON schema:
+            </p>
+            <div style="background: rgba(0,0,0,0.45); padding: 0.7rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 0.72rem; color: #a5f3fc; line-height: 1.45;">
+              {<br />
+              &nbsp;&nbsp;"status": "answered | insufficient_evidence | safety_refusal",<br />
+              &nbsp;&nbsp;"recommendation": "Markdown answer text",<br />
+              &nbsp;&nbsp;"supporting_evidence": [{"claim": "...", "citations": ["[Doc | Page | Section | Chunk]"]}],<br />
+              &nbsp;&nbsp;"confidence": "High | Medium | Low | safety_refusal",<br />
+              &nbsp;&nbsp;"follow_up_suggestions": [...]<br />
+              }
+            </div>
+          </div>
+
+          <!-- Refusal Check -->
+          <div class="card">
+            <div class="card-icon icon-cyan">
+              <span class="material-symbols-outlined">rule</span>
+            </div>
+            <h3 class="card-title">2. Evidence-Quality Refusal Check</h3>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>11 Grounding Rules:</strong> Strict prompt forbidding patient-specific prescriptions and ungrounded claims.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Distance-Based Gate:</strong> Inspects top retrieved chunk vector distance.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="dot"></span>
+                <span><strong>Refusal Trigger:</strong> If minimum vector distance exceeds threshold (distance &gt; 1.2), it automatically returns <code>insufficient_evidence</code>.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Day 4 — Safety Evaluation -->
+    <section class="slide" data-title="Day 4: Safety & Evaluation">
+      <div class="slide-header">
+        <div>
+          <div class="slide-eyebrow">
+            <span class="material-symbols-outlined" style="font-size: 15px;">gavel</span>
+            <span>Day 4 Deliverables</span>
+          </div>
+          <h2 class="slide-title">Input Risk Classification & Safety Audit</h2>
+          <p class="slide-subtitle">Fast deterministic risk filtering and 100% citation audit validation.</p>
+        </div>
+        <div class="slide-tag">
+          <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-rose);">security</span>
+          <span>Day 4</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- Risk Filter -->
+          <div class="card">
+            <div class="card-icon icon-rose">
+              <span class="material-symbols-outlined">shield</span>
+            </div>
+            <h3 class="card-title">Dual-Stage Risk Filter</h3>
+            <p class="card-desc">
+              <strong>Regex Layer:</strong> Instant detection of <em>Critical</em> (Emergencies, Jailbreaks) & <em>High</em> (Personal diagnoses/prescriptions) risks.<br /><br />
+              <strong>LLM Layer:</strong> Validates ambiguous questions.
+            </p>
+          </div>
+
+          <!-- Threshold Calibration -->
+          <div class="card">
+            <div class="card-icon icon-amber">
+              <span class="material-symbols-outlined">speed</span>
+            </div>
+            <h3 class="card-title">Threshold Calibration</h3>
+            <p class="card-desc">
+              Tested Out-of-Domain questions (e.g. eye surgery, programming, general chat) to establish distance cutoffs and eliminate false positive retrievals.
+            </p>
+          </div>
+
+          <!-- Citation Audit -->
+          <div class="card">
+            <div class="card-icon icon-emerald">
+              <span class="material-symbols-outlined">verified</span>
+            </div>
+            <h3 class="card-title">Citation Evaluation</h3>
+            <p class="card-desc">
+              Tested on multi-level clinical benchmark questions:
+            </p>
+            <div class="metric-row">
+              <div class="metric-box">
+                <div class="metric-val">100%</div>
+                <div class="metric-lbl">Valid Citations</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">0%</div>
+                <div class="metric-lbl">Hallucinations</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: UI Showcase 1 — Clinical Landing Portal -->
+    <section class="slide" data-title="UI: Clinical Landing Portal">
+      <div class="showcase-slide-layout">
+        <div class="slide-header" style="margin-bottom: 0.2rem;">
+          <div>
+            <div class="slide-eyebrow">
+              <span class="material-symbols-outlined" style="font-size: 15px;">desktop_windows</span>
+              <span>UI Showcase 1 / 4 — Public Landing Portal</span>
+            </div>
+            <h2 class="slide-title" style="font-size: 1.55rem; margin-bottom: 0.1rem;">Clinical Landing Portal</h2>
+            <p class="slide-subtitle" style="font-size: 0.85rem;">Fast entry point for clinicians with instant guideline overview and consultation kickoff.</p>
+          </div>
+          <div class="slide-tag">
+            <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-cyan);">home</span>
+            <span>Landing Page</span>
+          </div>
+        </div>
+
+        <!-- Features Strip Above Image -->
+        <div class="feature-strip">
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">bolt</span>
+            <span>Instant Consultation Entry</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span>WHO & NICE Metrics Overview</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">devices</span>
+            <span>Modern Responsive Glassmorphism</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">shield_person</span>
+            <span>Quick Clinician Sign-In / Sign-Up</span>
+          </span>
+        </div>
+
+        <!-- Full-width Screenshot Frame -->
+        <div class="full-image-frame">
+          <img src="images/land_page.png" alt="Clinical Landing Portal" onerror="this.src='../UI/land_page.png'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: UI Showcase 2 — Clinician Authentication -->
+    <section class="slide" data-title="UI: Clinician Authentication">
+      <div class="showcase-slide-layout">
+        <div class="slide-header" style="margin-bottom: 0.2rem;">
+          <div>
+            <div class="slide-eyebrow">
+              <span class="material-symbols-outlined" style="font-size: 15px;">vpn_key</span>
+              <span>UI Showcase 2 / 4 — Access & Security</span>
+            </div>
+            <h2 class="slide-title" style="font-size: 1.55rem; margin-bottom: 0.1rem;">Clinician Authentication & Security</h2>
+            <p class="slide-subtitle" style="font-size: 0.85rem;">Secure JWT token authentication, multi-user isolation, and zero-barrier Guest access.</p>
+          </div>
+          <div class="slide-tag">
+            <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-purple);">lock</span>
+            <span>Auth & Identity</span>
+          </div>
+        </div>
+
+        <!-- Features Strip Above Image -->
+        <div class="feature-strip">
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">lock</span>
+            <span>Secure JWT Token Auth</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">badge</span>
+            <span>Clinician Name & Profile Awareness</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">person_pin</span>
+            <span>Zero-Friction Guest Mode</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">history</span>
+            <span>Cloud & Local Consultation Sync</span>
+          </span>
+        </div>
+
+        <!-- Full-width Screenshot Frame -->
+        <div class="full-image-frame">
+          <img src="images/register_page.png" alt="Clinician Authentication & Register Page" onerror="this.src='../UI/register_page.png'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: UI Showcase 3 — Evidence-Grounded Consultation Chat -->
+    <section class="slide" data-title="UI: Grounded Consultation Chat">
+      <div class="showcase-slide-layout">
+        <div class="slide-header" style="margin-bottom: 0.2rem;">
+          <div>
+            <div class="slide-eyebrow">
+              <span class="material-symbols-outlined" style="font-size: 15px;">forum</span>
+              <span>UI Showcase 3 / 4 — Core Clinical Chat</span>
+            </div>
+            <h2 class="slide-title" style="font-size: 1.55rem; margin-bottom: 0.1rem;">Evidence-Grounded Consultation Chat</h2>
+            <p class="slide-subtitle" style="font-size: 0.85rem;">Clinical chat powered by Cross-Encoder re-ranking, multimodal speech, and verified citations.</p>
+          </div>
+          <div class="slide-tag">
+            <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-emerald);">smart_toy</span>
+            <span>Decision Support</span>
+          </div>
+        </div>
+
+        <!-- Features Strip Above Image -->
+        <div class="feature-strip">
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">verified</span>
+            <span>Cross-Encoder Re-ranked Grounding</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">mic</span>
+            <span>Multimodal Voice Dictation & TTS</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">shield</span>
+            <span>Risk Badges (Critical / High / Medium)</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">lightbulb</span>
+            <span>Contextual Follow-up Suggestions</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">star</span>
+            <span>Evidence Star Bookmarks & History</span>
+          </span>
+        </div>
+
+        <!-- Full-width Screenshot Frame -->
+        <div class="full-image-frame">
+          <img src="images/chat_page.png" alt="Clinical Consultation Chat" onerror="this.src='../UI/chat_page.png'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: UI Showcase 4 — Clinical Guideline Library & PDF Viewer -->
+    <section class="slide" data-title="UI: Guideline Library & PDF Viewer">
+      <div class="showcase-slide-layout">
+        <div class="slide-header" style="margin-bottom: 0.2rem;">
+          <div>
+            <div class="slide-eyebrow">
+              <span class="material-symbols-outlined" style="font-size: 15px;">local_library</span>
+              <span>UI Showcase 4 / 4 — Reference Library</span>
+            </div>
+            <h2 class="slide-title" style="font-size: 1.55rem; margin-bottom: 0.1rem;">Clinical Guideline Library & In-App PDF Viewer</h2>
+            <p class="slide-subtitle" style="font-size: 0.85rem;">Searchable indexed guidelines with instant split-screen PDF preview and exact page navigation.</p>
+          </div>
+          <div class="slide-tag">
+            <span class="material-symbols-outlined" style="font-size: 15px; color: var(--accent-amber);">picture_as_pdf</span>
+            <span>Document Library</span>
+          </div>
+        </div>
+
+        <!-- Features Strip Above Image -->
+        <div class="feature-strip">
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span>WHO (61 Pages) & NICE (52 Pages)</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">search</span>
+            <span>Real-time Guideline Search</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">visibility</span>
+            <span>In-App Full PDF Viewer Modal</span>
+          </span>
+          <span class="feature-pill-badge">
+            <span class="material-symbols-outlined">download</span>
+            <span>Official Guideline PDF Download</span>
+          </span>
+        </div>
+
+        <!-- Full-width Screenshot Frame -->
+        <div class="full-image-frame">
+          <img src="images/library_page.png" alt="Clinical Guideline Library" onerror="this.src='../UI/library_page.png'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: Conclusion -->
+    <section class="slide" data-title="Conclusion & Thank You">
+      <div class="title-slide-container">
+        <div class="card-icon icon-emerald" style="width: 56px; height: 56px; border-radius: 50%; font-size: 1.8rem; margin-bottom: 1rem;">
+          <span class="material-symbols-outlined" style="font-size: 32px;">favorite</span>
+        </div>
+
+        <h1 class="title-main-h1" style="font-size: 2.8rem; margin-bottom: 0.4rem;">Thank You!</h1>
+        <p class="title-sub" style="max-width: 650px; margin-bottom: 1.25rem;">
+          We sincerely thank the hackathon organizers, mentors, and judges for an incredible 4 days of intensive learning, engineering, and teamwork.
+        </p>
+
+        <div class="card" style="max-width: 600px; text-align: left; padding: 1.1rem; background: rgba(255, 255, 255, 0.04); margin-bottom: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.4rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.35rem; font-size: 0.88rem;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">insights</span>
+            <span>Key Takeaway from Team Retrieva:</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-sub); line-height: 1.5;">
+            "Safe AI in healthcare requires high retrieval precision, rigorous grid-search evaluation, deterministic guardrails, and 100% verified citations."
+          </p>
+        </div>
+
+        <div class="tech-pill-row">
+          <span class="tech-pill" style="color: var(--primary-light); border-color: var(--primary-light);">🚀 ClinicianMind AI is Live & Ready for Demo</span>
+          <span class="tech-pill">❓ Questions & Answers</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Speaker Notes Drawer -->
+  <aside class="speaker-notes-panel" id="speakerNotesPanel">
+    <div class="notes-header">
+      <div class="notes-title">
+        <span class="material-symbols-outlined" style="font-size: 17px;">mic</span>
+        <span>Presenter Notes & Talking Points</span>
+      </div>
+      <button id="closeNotesBtn" style="background: none; border: none; color: var(--text-muted); cursor: pointer;">
+        <span class="material-symbols-outlined" style="font-size: 17px;">close</span>
+      </button>
+    </div>
+    <div class="notes-body-en" id="notesEn"></div>
+    <div class="notes-body-ar" id="notesAr"></div>
+  </aside>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="nav-controls">
+      <button class="btn-nav" id="prevBtn" title="Previous Slide (Left Arrow)">
+        <span class="material-symbols-outlined" style="font-size: 17px;">chevron_left</span>
+        <span>Previous</span>
+      </button>
+      <button class="btn-nav" id="nextBtn" title="Next Slide (Right Arrow / Space)">
+        <span>Next</span>
+        <span class="material-symbols-outlined" style="font-size: 17px;">chevron_right</span>
+      </button>
+    </div>
+
+    <div class="slide-dots" id="slideDots"></div>
+
+    <div class="slide-counter" id="slideCounter">01 / 12</div>
+  </footer>
+
+  <script>
+    // Simplified, concise speaker talking points
+    const SPEAKER_NOTES = [
+      {
+        en: "Welcome everyone! We are Team Retrieva, presenting ClinicianMind AI — an evidence-grounded clinical decision support system.",
+        ar: "اهلا بيكم، احنا تيم Retrieva وبنقدملكم ClinicianMind AI — سيستم قرار طبي مبني على الأدلة الرسمية اتعمل خلال الـ 4 ايام."
+      },
+      {
+        en: "Healthcare requires zero hallucinations. We chose Adult Hypertension (1.4B patients) grounded strictly in official WHO (2021) and NICE (2023) guidelines.",
+        ar: "مشكلة الـ Hallucination في الطب خطيرة جداً، عشان كدا اخترنا موضوع ضغط الدم، وجبنا ملفين معتمدين من WHO و NICE عشان مفيش اي معلومة تطلع بدون دليل."
+      },
+      {
+        en: "Our architecture has 6 clear stages: PDF ingestion with page offsets, BGE embeddings in ChromaDB, Regex risk filters, distance refusal checks, and a modern React UI.",
+        ar: "المعمارية من 6 مراحل: استخراج الـ PDF والـ offsets، تخزين الـ Embeddings في ChromaDB، فلترة الـ Regex للأمان، فحص الـ Refusal، ثم واجهة الـ React."
+      },
+      {
+        en: "On Day 1, we built document cleaning, mapped a +12 page offset for WHO so citations match printed books, loaded ChromaDB, and added baseline grounding prompts.",
+        ar: "اليوم الاول: عملنا basic RAG بتنظيف النصوص، وظبطنا +12 page offset لـ WHO عشان الصفحات تطابق الكتاب المطبوع، وجهزنا ChromaDB."
+      },
+      {
+        en: "Day 2 was our core engineering day: We ran a Grid Search across 4 chunking configurations and 3 K depths. We explored Hybrid Search and Re-rankers to capture specific drug acronyms, and used the ranker as an automated judge to measure full database recall.",
+        ar: "اليوم التاني: عملنا Grid Search لـ 4 configurations و 3 قيم لـ K. جربنا Hybrid Search مع الرانكر عشان نلقط اختصارات الأدوية بالظبط، واستخدمنا الـ Ranker كـ Judge آلي يقيس الـ Recall على الداتابيز كاملة."
+      },
+      {
+        en: "On Day 3, we locked the LLM into a strict JSON schema with exact citations, and added a distance-based refusal gate (threshold 1.2) to block weak evidence.",
+        ar: "اليوم التالت: قفلنا الـ Output على JSON Schema محددة مع citations دقيقة، وضيفنا Refusal Check لو الـ distance اكبر من 1.2 نرفض السؤال فوراً."
+      },
+      {
+        en: "On Day 4, we added a fast Regex filter for emergencies/jailbreaks, calibrated distance thresholds with out-of-domain questions, and achieved 100% citation accuracy.",
+        ar: "اليوم الرابع: ضيفنا Regex سريع جداً للطوارئ والتشخيص الشخصي، وعايرنا الـ threshold، ووصلنا لـ 100% صحة في الـ citations بدون اي فتي."
+      },
+      {
+        en: "UI Showcase 1: The Clinical Landing Portal provides clinicians with immediate context, active guideline statistics, and a 1-click consultation entry.",
+        ar: "عرض الواجهة 1: الصفحة الرئيسية للموقع بتوفر للطبيب نظرة سريعة على الإرشادات المعتمدة، وإمكانية بدء استشارة فورية بضغطة زر."
+      },
+      {
+        en: "UI Showcase 2: Our authentication module supports registered clinicians with secure JWT sessions, personalized name greetings, plus a full Guest mode.",
+        ar: "عرض الواجهة 2: شاشة تسجيل الدخول والبروفايل تدعم الأمان وحفظ المحادثات والتعرف على اسم الطبيب المسجل، مع دعم كامل للـ Guest Mode."
+      },
+      {
+        en: "UI Showcase 3: The core consultation chat interface: equipped with high-speed Cross-Encoder re-ranking, multimodal voice dictation, unified confidence badges, and interactive follow-ups.",
+        ar: "عرض الواجهة 3: واجهة المحادثة الطبية الرئيسية مزودة بـ Re-ranker فائق الدقة، إدخال واستماع بالصوت، بادجات مستوى الخطر، وأسئلة متابعة تفاعلية."
+      },
+      {
+        en: "UI Showcase 4: Our Library module allows clinicians to explore official WHO (61 pages) and NICE (52 pages) guidelines, search topics, and inspect the exact PDF inside the app.",
+        ar: "عرض الواجهة 4: صفحة المكتبة تتيح للأطباء تصفح وثائق WHO (61 صفحة) و NICE (52 صفحة) الرسمية، والبحث فيها، وفتح ملف الـ PDF مباشرة داخل التطبيق."
+      },
+      {
+        en: "Thank you to our organizers and mentors! We are now ready for your questions and the live demonstration.",
+        ar: "شكراً جداً للمنظمين والـ Mentors على تعبكم معانا. واحنا جاهزين لأي اسئلة وتجربة الـ Live Demo!"
+      }
+    ];
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressBar = document.getElementById('progressBar');
+    const slideIndicatorTitle = document.getElementById('slideIndicatorTitle');
+    const slideCounter = document.getElementById('slideCounter');
+    const slideDots = document.getElementById('slideDots');
+    const speakerNotesPanel = document.getElementById('speakerNotesPanel');
+    const toggleNotesBtn = document.getElementById('toggleNotesBtn');
+    const closeNotesBtn = document.getElementById('closeNotesBtn');
+    const notesEn = document.getElementById('notesEn');
+    const notesAr = document.getElementById('notesAr');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+    // Create slide dots
+    slides.forEach((slide, idx) => {
+      const dot = document.createElement('div');
+      dot.className = `slide-dot ${idx === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => goToSlide(idx));
+      slideDots.appendChild(dot);
+    });
+
+    function updateSlideUI() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      const dots = document.querySelectorAll('.slide-dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      progressBar.style.width = `${progress}%`;
+
+      const currentTitle = slides[currentSlide].getAttribute('data-title') || `Slide ${currentSlide + 1}`;
+      slideIndicatorTitle.textContent = `Slide ${currentSlide + 1} / ${totalSlides} — ${currentTitle}`;
+      slideCounter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+
+      // Update speaker notes
+      if (SPEAKER_NOTES[currentSlide]) {
+        notesEn.innerHTML = `<strong>English:</strong> ${SPEAKER_NOTES[currentSlide].en}`;
+        notesAr.innerHTML = `<strong>عربي:</strong> ${SPEAKER_NOTES[currentSlide].ar}`;
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentSlide = index;
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlideUI();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlideUI();
+      }
+    }
+
+    // Event Listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    toggleNotesBtn.addEventListener('click', () => {
+      speakerNotesPanel.classList.toggle('open');
+    });
+
+    closeNotesBtn.addEventListener('click', () => {
+      speakerNotesPanel.classList.remove('open');
+    });
+
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides - 1);
+      } else if (e.key.toLowerCase() === 'n') {
+        speakerNotesPanel.classList.toggle('open');
+      } else if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    });
+
+    // Mouse ambient glow
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      document.getElementById('ambientGlow').style.setProperty('--mouse-x', `${x}%`);
+      document.getElementById('ambientGlow').style.setProperty('--mouse-y', `${y}%`);
+    });
+
+    // Initialize
+    updateSlideUI();
+  </script>
+</body>
+</html>
